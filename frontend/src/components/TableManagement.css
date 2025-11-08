@@ -1,0 +1,260 @@
+.table-management {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.management-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.back-button {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: inline-block;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.back-button:hover {
+  opacity: 1;
+}
+
+.header-content h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+}
+
+.header-content p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.management-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.add-table-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.add-table-form h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.table-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.table-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.tables-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.no-tables {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.no-tables p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-tables small {
+  color: #999;
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.table-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.table-card:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.table-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.available {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.occupied {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.qr-code-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.table-actions .btn-primary,
+.table-actions .btn-secondary {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.table-info {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.table-info a {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.table-info a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .management-content {
+    padding: 1rem;
+  }
+  
+  .add-table-section,
+  .tables-section {
+    padding: 1.5rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .table-input {
+    min-width: auto;
+  }
+  
+  .tables-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .table-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .table-actions {
+    flex-direction: column;
+  }
+  
+  .header-content h1 {
+    font-size: 2rem;
+  }
+}

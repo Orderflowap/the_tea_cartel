@@ -154,6 +154,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: 'Walk-in Customer'
   },
+  mobileNumber:{
+    type:String,
+    required:true,
+  },
   items: [{
     name: {
       type: String,

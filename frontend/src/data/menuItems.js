@@ -294,7 +294,7 @@ const menuItems = [
     isAvailable: true
   },
   {
-    id: 15,
+    id: 16,
     name: "Ayushman Special",
     category: "Cold Shakes",
     price: 149,
@@ -306,7 +306,7 @@ const menuItems = [
     isAvailable: true
   },
   {
-    id: 15,
+    id: 17,
     name: "Pranjal Special",
     category: "chilled",
     price: 149,

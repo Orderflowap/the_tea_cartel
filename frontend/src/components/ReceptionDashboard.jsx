@@ -157,7 +157,8 @@ const debugOrderData = (order) => {
       fetchOrders().then(() => {
         fetchStats();
       });
-      
+      // const socket = io("http://localhost:5000");
+
       socket = io('https://orderflow-backend-v964.onrender.com')
       socket.emit('join-reception')
       
@@ -241,18 +242,44 @@ const debugOrderData = (order) => {
     }
   }
 
+  // const fetchOrders = async () => {
+  //   try {
+  //     setLoading(true)
+  //     const response = await axios.get(`${API_BASE_URL}/orders`)
+  //     setOrders(response.data)
+  //     console.log("📦 Orders API response:", data);
+  //     setOrders(data.orders || []); 
+
+  //   } catch (error) {
+  //     console.error('Error fetching orders:', error)
+  //     alert('Error loading orders. Please try again.')
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   const fetchOrders = async () => {
-    try {
-      setLoading(true)
-      const response = await axios.get(`${API_BASE_URL}/orders`)
-      setOrders(response.data)
-    } catch (error) {
-      console.error('Error fetching orders:', error)
-      alert('Error loading orders. Please try again.')
-    } finally {
-      setLoading(false)
+  try {
+    console.log("📊 Fetching statistics...");
+    const res = await fetch(`${API}/orders`);
+    const data = await res.json();
+
+    console.log("📦 Orders API response:", data);
+
+    // Prevent crash
+    if (Array.isArray(data)) {
+      setOrders(data);
+    } else if (data.orders && Array.isArray(data.orders)) {
+      setOrders(data.orders);
+    } else {
+      console.error("❌ Orders is not an array:", data);
+      setOrders([]); // fallback
     }
+  } catch (err) {
+    console.error("Error fetching orders:", err);
+    setOrders([]);
   }
+};
 
  
   // Updated fetchStats function
@@ -615,7 +642,7 @@ const updateOrderStatus = async (orderNumber, newStatus) => {
                 Logout
               </button>
             </div>
-            <div classname="list">
+            <div className="list">
             <Link to="/admin/tables" className="btn-primary">
               Manage Tables
             </Link>

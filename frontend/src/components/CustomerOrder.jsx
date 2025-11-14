@@ -157,7 +157,7 @@ const placeOrder = async () => {
       customerName: customerInfo.name,
       mobileNumber: customerInfo.mobileNumber,
       items: cart.map(item => ({
-        // menuItem: generateMongoObjectId(), // Proper 24-char ObjectId
+        // menuItem: item._id, 
 
         name: item.name,
         quantity: item.quantity,
@@ -171,7 +171,8 @@ const placeOrder = async () => {
     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
     
     console.log('✅ Order response:', response.data);
-    
+    // alert(`Order placed successfully!", order id ${response}`);
+
     // alert(`Order placed successfully! Your order number is: ${response.data.order.orderNumber}`);
     alert(`✅ Order placed successfully! Your order number is: ${response.data.orderNumber || response.data.order?.orderNumber}`);
 

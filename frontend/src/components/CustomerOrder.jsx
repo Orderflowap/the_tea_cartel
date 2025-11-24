@@ -11,6 +11,7 @@ import background from '../assets/barista.jpg';
 const API_BASE_URL = 'https://orderflow-backend-v964.onrender.com/api'
 import logo from '../assets/logo.png';
 
+// const API_BASE_URL = 'http://localhost:5000/api';
 const CustomerOrder = () => {
   const { tableNumber } = useParams()
   const [customerInfo, setCustomerInfo] = useState({
@@ -142,6 +143,319 @@ const CustomerOrder = () => {
     return cart.reduce((total, item) => total + item.quantity, 0)
   }
 
+
+
+// const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name,
+//       mobileNumber: customerInfo.mobileNumber,
+//       items: cart.map(item => ({
+//         // menuItem: item._id, 
+
+//         name: item.name,
+//         quantity: item.quantity,
+//         price: item.price
+//       })),
+//       totalAmount: getTotalAmount()
+//     };
+
+//     console.log('📦 Order data with valid ObjectIds:', orderData);
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+//     // alert(`Order placed successfully!", order id ${response}`);
+
+//     // alert(`Order placed successfully! Your order number is: ${response.data.order.orderNumber}`);
+//     alert(`✅ Order placed successfully! Your order number is: ${response.data.orderNumber || response.data.order?.orderNumber}`);
+
+//     setCart([]);
+//     setShowCart(false);
+    
+//   } catch (error) {
+//     console.error('❌ Full error details:', error);
+    
+//     if (error.response && error.response.data) {
+//       console.error('❌ Backend error message:', error.response.data);
+//       alert(`Error: ${error.response.data.message || error.response.data.error}`);
+//     } else {
+//       alert('Error placing order. Please try again.');
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+
+
+// const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name,
+//       mobileNumber: customerInfo.mobileNumber,
+//       items: cart.map(item => ({
+//         menuItem: item._id, // ADD THIS BACK - it's required
+//         name: item.name,
+//         quantity: item.quantity,
+//         price: item.price,
+//         isVeg: item.isVeg // ADD THIS TOO
+//       }))
+//     };
+
+//     console.log('📦 Order data being sent:', orderData);
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+    
+//     if (response.data.success) {
+//       alert(`✅ Order placed successfully!\nOrder #: ${response.data.data.orderNumber}\nTotal: ₹${response.data.data.totalAmount.toFixed(2)}`);
+      
+//       setCart([]);
+//       setShowCart(false);
+//     } else {
+//       alert('Order failed: ' + response.data.message);
+//     }
+    
+//   } catch (error) {
+//     console.error('❌ Full error details:', error);
+    
+//     if (error.response && error.response.data) {
+//       console.error('❌ Backend error response:', error.response.data);
+      
+//       // Show detailed error message
+//       if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+//         const errorMessages = error.response.data.errors.map(err => 
+//           `${err.path}: ${err.message}`
+//         ).join('\n');
+//         alert(`Validation errors:\n${errorMessages}`);
+//       } else {
+//         alert(`Error: ${error.response.data.message || error.response.data.error}`);
+//       }
+//     } else {
+//       alert('Error placing order. Please try again.');
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+
+
+// const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name.trim(),
+//       mobileNumber: customerInfo.mobileNumber.trim(),
+//       items: cart.map(item => ({
+//         menuItem: item._id, // This is now a string, not ObjectId
+//         name: item.name,
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: Boolean(item.isVeg)
+//       }))
+//     };
+
+//     console.log('📦 Order data being sent:', orderData);
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+    
+//     if (response.data.success) {
+//       alert(`✅ Order placed successfully!\nOrder #: ${response.data.data.orderNumber}\nTotal: ₹${response.data.data.totalAmount.toFixed(2)}`);
+      
+//       setCart([]);
+//       setShowCart(false);
+//     } else {
+//       alert('Order failed: ' + response.data.message);
+//     }
+    
+//   } catch (error) {
+//     console.error('❌ Order error:', error);
+    
+//     if (error.response && error.response.data) {
+//       console.error('❌ Backend error:', error.response.data);
+      
+//       if (error.response.data.errors) {
+//         const errorMessages = error.response.data.errors.map(err => 
+//           `${err.path}: ${err.message}`
+//         ).join('\n');
+//         alert(`Validation errors:\n${errorMessages}`);
+//       } else {
+//         alert(`Error: ${error.response.data.message}`);
+//       }
+//     } else {
+//       alert('Error placing order. Please try again.');
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+
+// const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name.trim(),
+//       mobileNumber: customerInfo.mobileNumber.trim(),
+//       items: cart.map(item => ({
+//         menuItem: item._id,
+//         name: item.name,
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: Boolean(item.isVeg)
+//       }))
+//     };
+
+//     console.log('📦 Order data being sent:', JSON.stringify(orderData, null, 2));
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+    
+//     if (response.data.success) {
+//       alert(`✅ Order placed successfully!\nOrder #: ${response.data.data.orderNumber}\nTotal: ₹${response.data.data.totalAmount.toFixed(2)}`);
+      
+//       setCart([]);
+//       setShowCart(false);
+//     } else {
+//       alert('Order failed: ' + response.data.message);
+//     }
+    
+//   } catch (error) {
+//     console.error('❌ Order error:', error);
+    
+//     if (error.response && error.response.data) {
+//       console.error('❌ Backend error response:', error.response.data);
+      
+//       // Show detailed validation errors
+//       if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+//         const errorMessages = error.response.data.errors.map(err => 
+//           `• ${err.path}: ${err.message}`
+//         ).join('\n');
+//         alert(`Validation errors:\n${errorMessages}`);
+        
+//         // Log each error for detailed debugging
+//         error.response.data.errors.forEach(err => {
+//           console.error(`🔍 Validation Error - Field: ${err.path}, Message: ${err.message}`);
+//         });
+//       } else {
+//         alert(`Error: ${error.response.data.message || 'Unknown error'}`);
+//       }
+//     } else {
+//       alert('Network error. Please check your connection.');
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+// const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name.trim(),
+//       mobileNumber: customerInfo.mobileNumber.trim(),
+//       items: cart.map(item => ({
+//         menuItem: item._id,
+//         name: item.name,
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: Boolean(item.isVeg)
+//       }))
+//     };
+
+//     console.log('📦 Order data being sent:', JSON.stringify(orderData, null, 2));
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+    
+//     if (response.data.success) {
+//       alert(`✅ Order placed successfully!\nOrder #: ${response.data.data.orderNumber}\nTotal: ₹${response.data.data.totalAmount.toFixed(2)}`);
+      
+//       setCart([]);
+//       setShowCart(false);
+//     } else {
+//       alert('Order failed: ' + response.data.message);
+//     }
+    
+//   } catch (error) {
+//     console.error('❌ Order error:', error);
+    
+//     if (error.response && error.response.data) {
+//       console.error('❌ Backend error response:', error.response.data);
+      
+//       // Show detailed validation errors
+//       if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+//         const errorMessages = error.response.data.errors.map(err => 
+//           `• ${err.path}: ${err.message}`
+//         ).join('\n');
+//         alert(`Validation errors:\n${errorMessages}`);
+        
+//         // Log each error for detailed debugging
+//         error.response.data.errors.forEach(err => {
+//           console.error(`🔍 Validation Error - Field: ${err.path}, Message: ${err.message}`);
+//         });
+//       } else {
+//         alert(`Error: ${error.response.data.message || 'Unknown error'}`);
+//       }
+//     } else {
+//       alert('Network error. Please check your connection.');
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+
+
 const placeOrder = async () => {
   if (cart.length === 0) {
     alert('Your cart is empty. Please add items before placing an order.');
@@ -155,44 +469,88 @@ const placeOrder = async () => {
     
     const orderData = {
       tableNumber: parseInt(tableNumber),
-      customerName: customerInfo.name,
-      mobileNumber: customerInfo.mobileNumber,
+      customerName: customerInfo.name.trim(),
+      mobileNumber: customerInfo.mobileNumber.trim(),
       items: cart.map(item => ({
-        // menuItem: item._id, 
-
+        menuItem: item._id, // This should be a string from your JSON
         name: item.name,
-        quantity: item.quantity,
-        price: item.price
-      })),
-      totalAmount: getTotalAmount()
+        price: parseFloat(item.price),
+        quantity: parseInt(item.quantity),
+        isVeg: Boolean(item.isVeg)
+      }))
     };
 
-    console.log('📦 Order data with valid ObjectIds:', orderData);
+    console.log('📦 Order data being sent:', orderData);
 
     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
     
     console.log('✅ Order response:', response.data);
-    // alert(`Order placed successfully!", order id ${response}`);
-
-    // alert(`Order placed successfully! Your order number is: ${response.data.order.orderNumber}`);
-    alert(`✅ Order placed successfully! Your order number is: ${response.data.orderNumber || response.data.order?.orderNumber}`);
-
+    
+    alert(`✅ Order placed successfully!\nOrder #: ${response.data.data.orderNumber}\nTotal: ₹${response.data.data.totalAmount.toFixed(2)}`);
+    
     setCart([]);
     setShowCart(false);
     
   } catch (error) {
-    console.error('❌ Full error details:', error);
+    console.error('❌ Order error:', error);
     
     if (error.response && error.response.data) {
-      console.error('❌ Backend error message:', error.response.data);
-      alert(`Error: ${error.response.data.message || error.response.data.error}`);
+      console.error('❌ Backend error:', error.response.data);
+      alert(`Error: ${error.response.data.message || 'Unknown error'}`);
     } else {
-      alert('Error placing order. Please try again.');
+      alert('Network error. Please check your connection.');
     }
   } finally {
     setLoading(false);
   }
 }
+
+// Add this function to test the backend directly
+const testBackendDirectly = async () => {
+  try {
+    console.log('🧪 Testing backend with simple data...');
+    
+    const testData = {
+      tableNumber: 1,
+      customerName: "Backend Test",
+      mobileNumber: "9998887777",
+      items: [{
+        menuItem: "test-item-1",
+        name: "Test Item",
+        price: 10.99,
+        quantity: 1,
+        isVeg: true
+      }]
+    };
+
+    console.log('📤 Sending test data:', testData);
+    
+    const response = await axios.post(`${API_BASE_URL}/orders`, testData);
+    
+    console.log('✅ Backend test successful:', response.data);
+    alert('✅ Backend test successful! Check console for details.');
+    
+  } catch (error) {
+    console.error('❌ Backend test failed:', error);
+    
+    if (error.response?.data) {
+      console.error('Backend error details:', error.response.data);
+      
+      if (error.response.data.errors) {
+        console.error('Validation errors:', error.response.data.errors);
+        const fieldErrors = error.response.data.errors.map(err => 
+          `Field: "${err.path}", Error: ${err.message}`
+        ).join('\n');
+        alert(`Backend validation errors:\n${fieldErrors}`);
+      } else {
+        alert(`Backend error: ${error.response.data.message}`);
+      }
+    } else {
+      alert('Cannot connect to backend. Check if it is running.');
+    }
+  }
+};
+
 
 
 const generateObjectId = () => {
@@ -252,6 +610,23 @@ const generateObjectId = () => {
         <img src={background} alt='cafe-img'/>
         {/* <img src={logo} className='logo-overlay'/> */}
         <div className='cafe-name'>Amore Mio</div>
+        <button 
+  onClick={testBackendDirectly}
+  style={{
+    position: 'fixed',
+    top: '10px',
+    right: '10px',
+    background: '#ff6b6b',
+    color: 'white',
+    border: 'none',
+    padding: '10px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    zIndex: 1000
+  }}
+>
+  Test Backend
+</button>
         <button className='btn-primary'
           onClick={() => {
             if (menuRef.current) {

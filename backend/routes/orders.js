@@ -1160,6 +1160,31 @@ router.get('/', async (req, res) => {
   }
 });
 
+// routes/orders.js
+router.put('/:id/status', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status, updatedAt: new Date() },
+      { new: true }
+    );
+    
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+    
+    // Emit socket event for real-time updates
+    req.app.get('io').emit('order-status-updated', order);
+    
+    res.json({ success: true, data: order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // GET /api/orders/active - Get active orders
 router.get('/active', async (req, res) => {
   try {

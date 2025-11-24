@@ -1175,15 +1175,22 @@ router.put('/:id/status', async (req, res) => {
     if (!order) {
       return res.status(404).json({ success: false, message: 'Order not found' });
     }
-    
+    const newOrder = await Order.create(orderData);
     // Emit socket event for real-time updates
     req.app.get('io').emit('order-status-updated', order);
     
+// In your backend order status update endpoint  
+const updatedOrder = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+// Emit socket event
+req.app.get('io').emit('order-status-updated', updatedOrder);
     res.json({ success: true, data: order });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+
+
 
 // GET /api/orders/active - Get active orders
 router.get('/active', async (req, res) => {

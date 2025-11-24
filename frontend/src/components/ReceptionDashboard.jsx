@@ -3127,6 +3127,33 @@ const ReceptionDashboard = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+// Add this function in your ReceptionDashboard component
+const createFallbackSound = () => {
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.1);
+    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+    
+    return true;
+  } catch (error) {
+    console.log('🔇 Fallback sound failed:', error);
+    return false;
+  }
+};
+
   // Initialize default tables (1-10)
   const initializeTables = () => {
     const defaultTables = Array.from({ length: 10 }, (_, i) => ({

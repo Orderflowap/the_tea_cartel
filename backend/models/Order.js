@@ -241,11 +241,100 @@
 
 
 
+// const mongoose = require('mongoose');
+
+// const orderItemSchema = new mongoose.Schema({
+//   menuItem: {
+//     type: String, // CHANGED: String instead of ObjectId
+//     required: true
+//   },
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   price: {
+//     type: Number,
+//     required: true
+//   },
+//   quantity: {
+//     type: Number,
+//     required: true,
+//     min: 1
+//   },
+//   isVeg: {
+//     type: Boolean,
+//     default: true
+//   }
+// });
+
+// const orderSchema = new mongoose.Schema({
+//   tableNumber: {
+//     type: Number,
+//     required: true
+//   },
+//   customerName: {
+//     type: String,
+//     required: true
+//   },
+//   mobileNumber: {
+//     type: String,
+//     required: true
+//   },
+//   items: [orderItemSchema],
+//   status: {
+//     type: String,
+//     default: 'active'
+//   },
+//   subtotal: {
+//     type: Number,
+//     default: 0
+//   },
+//   taxAmount: {
+//     type: Number,
+//     default: 0
+//   },
+//   totalAmount: {
+//     type: Number,
+//     default: 0
+//   },
+//   orderNumber: {
+//     type: String
+//   },
+//   isPaid: {
+//     type: Boolean,
+//     default: false
+//   }
+// }, {
+//   timestamps: true
+// });
+
+// // Calculate totals before saving
+// orderSchema.pre('save', function(next) {
+//   // Calculate subtotal from items
+//   this.subtotal = this.items.reduce((total, item) => {
+//     return total + (item.price * item.quantity);
+//   }, 0);
+  
+//   // Calculate tax and total
+//   this.taxAmount = this.subtotal * 0.05;
+//   this.totalAmount = this.subtotal + this.taxAmount;
+  
+//   // Generate order number if not exists
+//   if (!this.orderNumber) {
+//     this.orderNumber = `ORD-${Date.now()}`;
+//   }
+  
+//   next();
+// });
+
+// module.exports = mongoose.model('Order', orderSchema);
+
+
 const mongoose = require('mongoose');
 
 const orderItemSchema = new mongoose.Schema({
   menuItem: {
-    type: String, // CHANGED: String instead of ObjectId
+    type: String,
     required: true
   },
   name: {
@@ -270,20 +359,26 @@ const orderItemSchema = new mongoose.Schema({
 const orderSchema = new mongoose.Schema({
   tableNumber: {
     type: Number,
-    required: true
+    required: true,
+    min: 1,
+    max: 50
   },
   customerName: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    maxlength: 100
   },
   mobileNumber: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   items: [orderItemSchema],
   status: {
     type: String,
-    default: 'active'
+    enum: ['pending', 'confirmed', 'preparing', 'ready', 'served', 'paid', 'cancelled'],
+    default: 'pending'
   },
   subtotal: {
     type: Number,
@@ -297,12 +392,22 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  finalTotal: {
+    type: Number,
+    default: 0
+  },
   orderNumber: {
-    type: String
+    type: String,
+    unique: true,
+    sparse: true
   },
   isPaid: {
     type: Boolean,
     default: false
+  },
+  notes: {
+    type: String,
+    maxlength: 500
   }
 }, {
   timestamps: true
@@ -316,15 +421,64 @@ orderSchema.pre('save', function(next) {
   }, 0);
   
   // Calculate tax and total
-  this.taxAmount = this.subtotal * 0.05;
-  this.totalAmount = this.subtotal + this.taxAmount;
+  this.taxAmount = parseFloat((this.subtotal * 0.05).toFixed(2));
+  this.totalAmount = parseFloat((this.subtotal + this.taxAmount).toFixed(2));
+  this.finalTotal = this.totalAmount;
   
   // Generate order number if not exists
   if (!this.orderNumber) {
-    this.orderNumber = `ORD-${Date.now()}`;
+    const timestamp = Date.now().toString().slice(-6);
+    const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+    this.orderNumber = `ORD-${timestamp}-${random}`;
+  }
+  
+  // Update isPaid based on status
+  if (this.status === 'paid') {
+    this.isPaid = true;
+  } else {
+    this.isPaid = false;
   }
   
   next();
 });
+
+// Index for better performance
+orderSchema.index({ status: 1 });
+orderSchema.index({ tableNumber: 1 });
+orderSchema.index({ createdAt: -1 });
+orderSchema.index({ orderNumber: 1 });
+
+// Virtual for formatted date
+orderSchema.virtual('formattedDate').get(function() {
+  return this.createdAt.toLocaleDateString('en-IN');
+});
+
+// Virtual for formatted time
+orderSchema.virtual('formattedTime').get(function() {
+  return this.createdAt.toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+});
+
+// Method to check if order is active
+orderSchema.methods.isActive = function() {
+  return ['pending', 'confirmed', 'preparing', 'ready', 'served'].includes(this.status);
+};
+
+// Static method to get active orders
+orderSchema.statics.getActiveOrders = function() {
+  return this.find({
+    status: { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] }
+  }).sort({ createdAt: -1 });
+};
+
+// Static method to get orders by table
+orderSchema.statics.getTableOrders = function(tableNumber) {
+  return this.find({
+    tableNumber: parseInt(tableNumber),
+    status: { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] }
+  }).sort({ createdAt: -1 });
+};
 
 module.exports = mongoose.model('Order', orderSchema);

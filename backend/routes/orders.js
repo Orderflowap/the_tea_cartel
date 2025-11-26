@@ -1068,6 +1068,414 @@
 // module.exports = router;
 
 
+// const express = require('express');
+// const router = express.Router();
+// const Order = require('../models/Order');
+
+// // POST /api/orders - Create new order
+// router.post('/', async (req, res) => {
+//   try {
+//     console.log('📦 Received order request:', req.body);
+
+//     const { tableNumber, customerName, mobileNumber, items } = req.body;
+
+//     // Basic validation
+//     if (!tableNumber || !customerName || !mobileNumber) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Missing required fields: tableNumber, customerName, mobileNumber'
+//       });
+//     }
+
+//     if (!items || !Array.isArray(items) || items.length === 0) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Order must contain at least one item'
+//       });
+//     }
+
+//     // Validate each item
+//     for (const item of items) {
+//       if (!item.name || !item.price || !item.quantity) {
+//         return res.status(400).json({
+//           success: false,
+//           message: 'Each item must have name, price, and quantity'
+//         });
+//       }
+//     }
+
+//     // Create new order
+//     const order = new Order({
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerName.trim(),
+//       mobileNumber: mobileNumber.trim(),
+//       items: items.map(item => ({
+//         menuItem: item.menuItem || `item-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+//         name: item.name,
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: item.isVeg !== undefined ? Boolean(item.isVeg) : true
+//       }))
+//     });
+
+//     const savedOrder = await order.save();
+    
+//     console.log('✅ Order created successfully:', savedOrder);
+
+//     res.status(201).json({
+//       success: true,
+//       data: savedOrder,
+//       message: 'Order created successfully'
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error creating order:', error);
+    
+//     res.status(400).json({
+//       success: false,
+//       message: 'Error creating order',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // GET /api/orders - Get all orders
+// router.get('/', async (req, res) => {
+//   try {
+//     const orders = await Order.find().sort({ createdAt: -1 });
+    
+//     res.json({
+//       success: true,
+//       data: orders,
+//       message: `Found ${orders.length} orders`
+//     });
+    
+//   } catch (error) {
+//     console.error('Error fetching orders:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error fetching orders',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // routes/orders.js
+// router.put('/:id/status', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+    
+//     const order = await Order.findByIdAndUpdate(
+//       id,
+//       { status, updatedAt: new Date() },
+//       { new: true }
+//     );
+    
+//     if (!order) {
+//       return res.status(404).json({ success: false, message: 'Order not found' });
+//     }
+//     const newOrder = await Order.create(orderData);
+//     // Emit socket event for real-time updates
+//     req.app.get('io').emit('order-status-updated', order);
+    
+// // In your backend order status update endpoint  
+// const updatedOrder = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+// // Emit socket event
+// req.app.get('io').emit('order-status-updated', updatedOrder);
+//     res.json({ success: true, data: order });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// });
+
+
+
+
+// // GET /api/orders/active - Get active orders
+// router.get('/active', async (req, res) => {
+//   try {
+//     const activeOrders = await Order.find({
+//       status: 'active'
+//     }).sort({ createdAt: -1 });
+
+//     res.json({
+//       success: true,
+//       data: activeOrders,
+//       message: `Found ${activeOrders.length} active orders`
+//     });
+
+//   } catch (error) {
+//     console.error('Error fetching active orders:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error fetching active orders',
+//       error: error.message
+//     });
+//   }
+// });
+
+// module.exports = router;
+
+
+// const express = require('express');
+// const router = express.Router();
+// const Order = require('../models/Order');
+
+// // POST /api/orders - Create new order
+// router.post('/', async (req, res) => {
+//   try {
+//     console.log('📦 Received order request:', req.body);
+
+//     const { tableNumber, customerName, mobileNumber, items } = req.body;
+
+//     // Basic validation
+//     if (!tableNumber || !customerName || !mobileNumber) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Missing required fields: tableNumber, customerName, mobileNumber'
+//       });
+//     }
+
+//     if (!items || !Array.isArray(items) || items.length === 0) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Order must contain at least one item'
+//       });
+//     }
+
+//     // Validate each item
+//     for (const item of items) {
+//       if (!item.name || !item.price || !item.quantity) {
+//         return res.status(400).json({
+//           success: false,
+//           message: 'Each item must have name, price, and quantity'
+//         });
+//       }
+//     }
+
+//     // Create new order
+//     const order = new Order({
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerName.trim(),
+//       mobileNumber: mobileNumber.trim(),
+//       items: items.map(item => ({
+//         menuItem: item.menuItem || `item-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+//         name: item.name,
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: item.isVeg !== undefined ? Boolean(item.isVeg) : true
+//       }))
+//     });
+
+//     const savedOrder = await order.save();
+    
+//     console.log('✅ Order created successfully:', savedOrder);
+
+//     // EMIT SOCKET EVENT FOR NEW ORDER - ADD THIS
+//     try {
+//       const io = req.app.get('io');
+//       if (io) {
+//         io.emit('new-order', savedOrder);
+//         console.log('📢 Emitted new-order event via socket');
+//       }
+//     } catch (socketError) {
+//       console.warn('⚠️ Could not emit socket event:', socketError.message);
+//     }
+
+//     res.status(201).json({
+//       success: true,
+//       data: savedOrder,
+//       message: 'Order created successfully'
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error creating order:', error);
+    
+//     res.status(400).json({
+//       success: false,
+//       message: 'Error creating order',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // GET /api/orders - Get all orders
+// router.get('/', async (req, res) => {
+//   try {
+//     const orders = await Order.find().sort({ createdAt: -1 });
+    
+//     res.json({
+//       success: true,
+//       data: orders,
+//       message: `Found ${orders.length} orders`
+//     });
+    
+//   } catch (error) {
+//     console.error('Error fetching orders:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error fetching orders',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // UPDATE ORDER STATUS - FIXED VERSION
+// router.put('/:id/status', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+    
+//     console.log(`🔄 Updating order ${id} status to: ${status}`);
+    
+//     // Validate status
+//     const validStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'served', 'paid', 'cancelled'];
+//     if (!validStatuses.includes(status)) {
+//       return res.status(400).json({ 
+//         success: false, 
+//         message: `Invalid status. Must be one of: ${validStatuses.join(', ')}` 
+//       });
+//     }
+
+//     const order = await Order.findByIdAndUpdate(
+//       id,
+//       { 
+//         status, 
+//         updatedAt: new Date() 
+//       },
+//       { new: true, runValidators: true }
+//     );
+    
+//     if (!order) {
+//       return res.status(404).json({ 
+//         success: false, 
+//         message: 'Order not found' 
+//       });
+//     }
+
+//     console.log(`✅ Order status updated: ${order.orderNumber} -> ${status}`);
+
+//     // EMIT SOCKET EVENT FOR STATUS UPDATE - FIXED
+//     try {
+//       const io = req.app.get('io');
+//       if (io) {
+//         io.emit('order-status-updated', order);
+//         console.log('📢 Emitted order-status-updated event via socket');
+//       }
+//     } catch (socketError) {
+//       console.warn('⚠️ Could not emit socket event:', socketError.message);
+//       // Don't fail the request if socket fails
+//     }
+
+//     res.json({ 
+//       success: true, 
+//       data: order,
+//       message: `Order status updated to ${status}`
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error updating order status:', error);
+//     res.status(500).json({ 
+//       success: false, 
+//       message: 'Error updating order status',
+//       error: error.message 
+//     });
+//   }
+// });
+
+// // ADDITIONAL ENDPOINT FOR COMPATIBILITY
+// router.put('/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+    
+//     if (status) {
+//       // If status is being updated, use the status endpoint logic
+//       return router.handle(req, res); // This will call the status endpoint
+//     }
+    
+//     // Handle other order updates if needed
+//     const order = await Order.findByIdAndUpdate(
+//       id,
+//       { ...req.body, updatedAt: new Date() },
+//       { new: true, runValidators: true }
+//     );
+    
+//     if (!order) {
+//       return res.status(404).json({ 
+//         success: false, 
+//         message: 'Order not found' 
+//       });
+//     }
+
+//     res.json({ 
+//       success: true, 
+//       data: order 
+//     });
+
+//   } catch (error) {
+//     console.error('❌ Error updating order:', error);
+//     res.status(500).json({ 
+//       success: false, 
+//       message: 'Error updating order',
+//       error: error.message 
+//     });
+//   }
+// });
+
+// // GET /api/orders/active - Get active orders
+// router.get('/active', async (req, res) => {
+//   try {
+//     const activeOrders = await Order.find({
+//       status: { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] }
+//     }).sort({ createdAt: -1 });
+
+//     res.json({
+//       success: true,
+//       data: activeOrders,
+//       message: `Found ${activeOrders.length} active orders`
+//     });
+
+//   } catch (error) {
+//     console.error('Error fetching active orders:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error fetching active orders',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // GET /api/orders/table/:tableNumber - Get orders by table
+// router.get('/table/:tableNumber', async (req, res) => {
+//   try {
+//     const { tableNumber } = req.params;
+    
+//     const tableOrders = await Order.find({
+//       tableNumber: parseInt(tableNumber),
+//       status: { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] }
+//     }).sort({ createdAt: -1 });
+
+//     res.json({
+//       success: true,
+//       data: tableOrders,
+//       message: `Found ${tableOrders.length} orders for table ${tableNumber}`
+//     });
+
+//   } catch (error) {
+//     console.error('Error fetching table orders:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error fetching table orders',
+//       error: error.message
+//     });
+//   }
+// });
+
+// module.exports = router;
+
+
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
@@ -1075,11 +1483,11 @@ const Order = require('../models/Order');
 // POST /api/orders - Create new order
 router.post('/', async (req, res) => {
   try {
-    console.log('📦 Received order request:', req.body);
+    console.log('📦 Received order request:', JSON.stringify(req.body, null, 2));
 
-    const { tableNumber, customerName, mobileNumber, items } = req.body;
+    const { tableNumber, customerName, mobileNumber, items, notes } = req.body;
 
-    // Basic validation
+    // Enhanced validation
     if (!tableNumber || !customerName || !mobileNumber) {
       return res.status(400).json({
         success: false,
@@ -1095,32 +1503,76 @@ router.post('/', async (req, res) => {
     }
 
     // Validate each item
-    for (const item of items) {
-      if (!item.name || !item.price || !item.quantity) {
+    for (const [index, item] of items.entries()) {
+      if (!item.name || item.price === undefined || !item.quantity) {
         return res.status(400).json({
           success: false,
-          message: 'Each item must have name, price, and quantity'
+          message: `Item ${index + 1} must have name, price, and quantity`
+        });
+      }
+      if (item.price < 0) {
+        return res.status(400).json({
+          success: false,
+          message: `Item ${index + 1} price cannot be negative`
+        });
+      }
+      if (item.quantity < 1) {
+        return res.status(400).json({
+          success: false,
+          message: `Item ${index + 1} quantity must be at least 1`
         });
       }
     }
 
     // Create new order
-    const order = new Order({
+    const orderData = {
       tableNumber: parseInt(tableNumber),
       customerName: customerName.trim(),
       mobileNumber: mobileNumber.trim(),
       items: items.map(item => ({
         menuItem: item.menuItem || `item-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-        name: item.name,
+        name: item.name.trim(),
         price: parseFloat(item.price),
         quantity: parseInt(item.quantity),
         isVeg: item.isVeg !== undefined ? Boolean(item.isVeg) : true
       }))
-    });
+    };
 
+    if (notes) {
+      orderData.notes = notes.trim();
+    }
+
+    const order = new Order(orderData);
     const savedOrder = await order.save();
     
-    console.log('✅ Order created successfully:', savedOrder);
+    console.log('✅ Order created successfully:', savedOrder.orderNumber);
+
+    // EMIT SOCKET EVENT FOR NEW ORDER - ENHANCED
+    try {
+      const io = req.app.get('io');
+      if (io) {
+        const socketData = {
+          ...savedOrder.toObject(),
+          eventType: 'new-order',
+          timestamp: new Date().toISOString(),
+          source: 'api'
+        };
+
+        // Emit multiple events for better compatibility
+        io.emit('new-order', socketData);
+        io.emit('order-created', socketData);
+        io.emit('order-change', socketData);
+        
+        // Emit to specific rooms
+        io.to('reception').emit('new-order', socketData);
+        io.to('kitchen').emit('new-order', socketData);
+
+        console.log('📢 Emitted new-order events to all clients');
+      }
+    } catch (socketError) {
+      console.warn('⚠️ Could not emit socket event:', socketError.message);
+      // Don't fail the request if socket fails
+    }
 
     res.status(201).json({
       success: true,
@@ -1131,6 +1583,15 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.error('❌ Error creating order:', error);
     
+    // Handle duplicate order number
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Order number already exists, please try again',
+        error: 'Duplicate order number'
+      });
+    }
+    
     res.status(400).json({
       success: false,
       message: 'Error creating order',
@@ -1139,19 +1600,52 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/orders - Get all orders
+// GET /api/orders - Get all orders with filtering
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 });
+    const { status, table, limit, page } = req.query;
+    let query = {};
+    
+    // Filter by status
+    if (status) {
+      if (status === 'active') {
+        query.status = { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] };
+      } else {
+        query.status = status;
+      }
+    }
+    
+    // Filter by table
+    if (table) {
+      query.tableNumber = parseInt(table);
+    }
+    
+    // Pagination
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 100;
+    const skip = (pageNum - 1) * limitNum;
+    
+    const orders = await Order.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limitNum);
+    
+    const total = await Order.countDocuments(query);
     
     res.json({
       success: true,
       data: orders,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      },
       message: `Found ${orders.length} orders`
     });
     
   } catch (error) {
-    console.error('Error fetching orders:', error);
+    console.error('❌ Error fetching orders:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching orders',
@@ -1160,56 +1654,295 @@ router.get('/', async (req, res) => {
   }
 });
 
-// routes/orders.js
+// UPDATE ORDER STATUS - ENHANCED VERSION
 router.put('/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
     
+    console.log(`🔄 Updating order ${id} status to: ${status}`);
+    
+    if (!status) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Status is required' 
+      });
+    }
+    
+    // Validate status
+    const validStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'served', 'paid', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: `Invalid status. Must be one of: ${validStatuses.join(', ')}` 
+      });
+    }
+
     const order = await Order.findByIdAndUpdate(
       id,
-      { status, updatedAt: new Date() },
-      { new: true }
+      { 
+        status, 
+        updatedAt: new Date() 
+      },
+      { new: true, runValidators: true }
     );
     
     if (!order) {
-      return res.status(404).json({ success: false, message: 'Order not found' });
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Order not found' 
+      });
     }
-    const newOrder = await Order.create(orderData);
-    // Emit socket event for real-time updates
-    req.app.get('io').emit('order-status-updated', order);
-    
-// In your backend order status update endpoint  
-const updatedOrder = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
-// Emit socket event
-req.app.get('io').emit('order-status-updated', updatedOrder);
-    res.json({ success: true, data: order });
+
+    console.log(`✅ Order status updated: ${order.orderNumber} -> ${status}`);
+
+    // EMIT SOCKET EVENT FOR STATUS UPDATE - ENHANCED
+    try {
+      const io = req.app.get('io');
+      if (io) {
+        const socketData = {
+          ...order.toObject(),
+          eventType: 'status-updated',
+          timestamp: new Date().toISOString(),
+          source: 'api',
+          previousStatus: req.body.previousStatus // if provided
+        };
+
+        // Emit multiple events for better compatibility
+        io.emit('order-status-updated', socketData);
+        io.emit('order-updated', socketData);
+        io.emit('order-change', socketData);
+        io.emit('status-changed', socketData);
+        
+        // Emit to specific rooms
+        io.to('reception').emit('order-status-updated', socketData);
+        io.to('kitchen').emit('order-status-updated', socketData);
+
+        console.log('📢 Emitted order status update events to all clients');
+      }
+    } catch (socketError) {
+      console.warn('⚠️ Could not emit socket event:', socketError.message);
+      // Don't fail the request if socket fails
+    }
+
+    res.json({ 
+      success: true, 
+      data: order,
+      message: `Order status updated to ${status}`
+    });
+
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('❌ Error updating order status:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error updating order status',
+      error: error.message 
+    });
   }
 });
 
+// UPDATE ORDER - COMPREHENSIVE ENDPOINT
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, ...otherUpdates } = req.body;
+    
+    console.log(`🔄 Updating order ${id}:`, req.body);
+    
+    // If status is being updated, use the status endpoint logic
+    if (status) {
+      req.params.id = id;
+      req.body = { status };
+      return await router.handle(req, res);
+    }
+    
+    // Handle other order updates
+    const updateData = {
+      ...otherUpdates,
+      updatedAt: new Date()
+    };
 
+    const order = await Order.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true, runValidators: true }
+    );
+    
+    if (!order) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Order not found' 
+      });
+    }
 
+    // Emit socket event for general updates
+    try {
+      const io = req.app.get('io');
+      if (io) {
+        const socketData = {
+          ...order.toObject(),
+          eventType: 'order-updated',
+          timestamp: new Date().toISOString(),
+          source: 'api',
+          updateFields: Object.keys(otherUpdates)
+        };
+
+        io.emit('order-updated', socketData);
+        io.emit('order-change', socketData);
+      }
+    } catch (socketError) {
+      console.warn('⚠️ Could not emit socket event:', socketError.message);
+    }
+
+    res.json({ 
+      success: true, 
+      data: order,
+      message: 'Order updated successfully'
+    });
+
+  } catch (error) {
+    console.error('❌ Error updating order:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error updating order',
+      error: error.message 
+    });
+  }
+});
 
 // GET /api/orders/active - Get active orders
 router.get('/active', async (req, res) => {
   try {
-    const activeOrders = await Order.find({
-      status: 'active'
-    }).sort({ createdAt: -1 });
+    const activeOrders = await Order.getActiveOrders();
 
     res.json({
       success: true,
       data: activeOrders,
+      count: activeOrders.length,
       message: `Found ${activeOrders.length} active orders`
     });
 
   } catch (error) {
-    console.error('Error fetching active orders:', error);
+    console.error('❌ Error fetching active orders:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching active orders',
+      error: error.message
+    });
+  }
+});
+
+// GET /api/orders/table/:tableNumber - Get orders by table
+router.get('/table/:tableNumber', async (req, res) => {
+  try {
+    const { tableNumber } = req.params;
+    
+    if (!tableNumber || isNaN(tableNumber)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid table number is required'
+      });
+    }
+
+    const tableOrders = await Order.getTableOrders(parseInt(tableNumber));
+
+    res.json({
+      success: true,
+      data: tableOrders,
+      count: tableOrders.length,
+      message: `Found ${tableOrders.length} orders for table ${tableNumber}`
+    });
+
+  } catch (error) {
+    console.error('❌ Error fetching table orders:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching table orders',
+      error: error.message
+    });
+  }
+});
+
+// DELETE /api/orders/:id - Delete order
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const order = await Order.findByIdAndDelete(id);
+    
+    if (!order) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Order not found' 
+      });
+    }
+
+    // Emit socket event for deletion
+    try {
+      const io = req.app.get('io');
+      if (io) {
+        io.emit('order-deleted', {
+          orderId: id,
+          orderNumber: order.orderNumber,
+          tableNumber: order.tableNumber,
+          timestamp: new Date().toISOString()
+        });
+      }
+    } catch (socketError) {
+      console.warn('⚠️ Could not emit socket event:', socketError.message);
+    }
+
+    res.json({ 
+      success: true, 
+      message: 'Order deleted successfully',
+      data: { orderNumber: order.orderNumber, tableNumber: order.tableNumber }
+    });
+
+  } catch (error) {
+    console.error('❌ Error deleting order:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error deleting order',
+      error: error.message 
+    });
+  }
+});
+
+// GET /api/orders/stats - Get order statistics
+router.get('/stats', async (req, res) => {
+  try {
+    const totalOrders = await Order.countDocuments();
+    const pendingOrders = await Order.countDocuments({
+      status: { $in: ['pending', 'confirmed', 'preparing', 'ready', 'served'] }
+    });
+    const completedOrders = await Order.countDocuments({ status: 'paid' });
+    const cancelledOrders = await Order.countDocuments({ status: 'cancelled' });
+    
+    // Revenue calculation
+    const revenueResult = await Order.aggregate([
+      { $match: { status: 'paid' } },
+      { $group: { _id: null, totalRevenue: { $sum: '$totalAmount' } } }
+    ]);
+    
+    const totalRevenue = revenueResult.length > 0 ? revenueResult[0].totalRevenue : 0;
+
+    res.json({
+      success: true,
+      data: {
+        totalOrders,
+        pendingOrders,
+        completedOrders,
+        cancelledOrders,
+        totalRevenue: parseFloat(totalRevenue.toFixed(2))
+      },
+      message: 'Order statistics retrieved successfully'
+    });
+
+  } catch (error) {
+    console.error('❌ Error fetching order stats:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching order statistics',
       error: error.message
     });
   }

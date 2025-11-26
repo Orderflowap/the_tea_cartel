@@ -1217,56 +1217,56 @@ const CustomerOrder = () => {
   }
 
   // ✅ FIXED: Enhanced test function
-  const testBackendDirectly = async () => {
-    try {
-      console.log('🧪 Testing backend connection...');
+  // const testBackendDirectly = async () => {
+  //   try {
+  //     console.log('🧪 Testing backend connection...');
       
-      // First test if backend is reachable
-      const healthResponse = await axios.get(`${API_BASE_URL}/health`);
-      console.log('✅ Health check:', healthResponse.data);
+  //     // First test if backend is reachable
+  //     const healthResponse = await axios.get(`${API_BASE_URL}/health`);
+  //     console.log('✅ Health check:', healthResponse.data);
       
-      // Then test with simple order data
-      const testData = {
-        tableNumber: 1,
-        customerName: "Test Customer",
-        mobileNumber: "9998887777",
-        items: [{
-          _id: "test-item-1", // ✅ Use _id instead of menuItem
-          name: "Test Item",
-          price: 100,
-          quantity: 1,
-          isVeg: true
-        }]
-      };
+  //     // Then test with simple order data
+  //     const testData = {
+  //       tableNumber: 1,
+  //       customerName: "Test Customer",
+  //       mobileNumber: "9998887777",
+  //       items: [{
+  //         _id: "test-item-1", // ✅ Use _id instead of menuItem
+  //         name: "Test Item",
+  //         price: 100,
+  //         quantity: 1,
+  //         isVeg: true
+  //       }]
+  //     };
 
-      console.log('📤 Sending test order data:', testData);
+  //     console.log('📤 Sending test order data:', testData);
       
-      const response = await axios.post(`${API_BASE_URL}/orders`, testData);
+  //     const response = await axios.post(`${API_BASE_URL}/orders`, testData);
       
-      console.log('✅ Backend test successful:', response.data);
-      alert('✅ Backend test successful! Check console for details.');
+  //     console.log('✅ Backend test successful:', response.data);
+  //     alert('✅ Backend test successful! Check console for details.');
       
-    } catch (error) {
-      console.error('❌ Backend test failed:', error);
+  //   } catch (error) {
+  //     console.error('❌ Backend test failed:', error);
       
-      if (error.response?.data) {
-        console.error('Backend error details:', error.response.data);
+  //     if (error.response?.data) {
+  //       console.error('Backend error details:', error.response.data);
         
-        if (error.response.data.errors) {
-          const fieldErrors = error.response.data.errors.map(err => 
-            `Field: "${err.path}", Error: ${err.message}`
-          ).join('\n');
-          alert(`Backend validation errors:\n${fieldErrors}`);
-        } else {
-          alert(`Backend error: ${error.response.data.message || JSON.stringify(error.response.data)}`);
-        }
-      } else if (error.request) {
-        alert('Cannot connect to backend. Check if it is running and CORS is configured.');
-      } else {
-        alert('Test error: ' + error.message);
-      }
-    }
-  };
+  //       if (error.response.data.errors) {
+  //         const fieldErrors = error.response.data.errors.map(err => 
+  //           `Field: "${err.path}", Error: ${err.message}`
+  //         ).join('\n');
+  //         alert(`Backend validation errors:\n${fieldErrors}`);
+  //       } else {
+  //         alert(`Backend error: ${error.response.data.message || JSON.stringify(error.response.data)}`);
+  //       }
+  //     } else if (error.request) {
+  //       alert('Cannot connect to backend. Check if it is running and CORS is configured.');
+  //     } else {
+  //       alert('Test error: ' + error.message);
+  //     }
+  //   }
+  // };
 
   // ✅ FIXED: Test body parsing endpoint
   const testBodyParsing = async () => {
@@ -1354,12 +1354,12 @@ const CustomerOrder = () => {
         
         {/* Debug buttons */}
         <div style={{ position: 'fixed', top: '10px', right: '10px', display: 'flex', gap: '10px', zIndex: 1000 }}>
-          <button 
+          {/* <button 
             onClick={testBackendDirectly}
             style={{ background: '#4CAF50', color: 'white', border: 'none', padding: '10px', borderRadius: '5px', cursor: 'pointer' }}
           >
             Test Backend
-          </button>
+          </button> */}
           <button 
             onClick={testBodyParsing}
             style={{ background: '#2196F3', color: 'white', border: 'none', padding: '10px', borderRadius: '5px', cursor: 'pointer' }}

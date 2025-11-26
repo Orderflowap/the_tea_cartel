@@ -442,31 +442,88 @@ const initializeTableOrders = (ordersData) => {
   }
 
   // FIXED: Enhanced stats calculation
-  const calculateStatsFromOrders = (ordersData) => {
-    try {
-      const totalOrders = ordersData.length
+  // const calculateStatsFromOrders = (ordersData) => {
+  //   try {
+  //     const totalOrders = ordersData.length
       
-      // FIXED: Include served orders in pending count (they're still visible for billing)
-      const pendingOrders = ordersData.filter(order => 
-        ['pending', 'confirmed', 'preparing', 'ready', 'served'].includes(order.status)
-      ).length
+  //     // FIXED: Include served orders in pending count (they're still visible for billing)
+  //     const pendingOrders = ordersData.filter(order => 
+  //       ['pending', 'confirmed', 'preparing', 'ready', 'served'].includes(order.status)
+  //     ).length
       
-      // FIXED: Calculate revenue from paid orders with proper amount
-      const totalRevenue = ordersData
-        .filter(order => order.status === 'paid')
-        .reduce((total, order) => {
-          const orderAmount = order.finalTotal || order.totalAmount || 0
-          console.log(`💰 Order ${order.orderNumber}: ${orderAmount}`)
-          return total + orderAmount
-        }, 0)
+  //     // FIXED: Calculate revenue from paid orders with proper amount
+  //     const totalRevenue = ordersData
+  //       .filter(order => order.status === 'paid')
+  //       .reduce((total, order) => {
+  //         const orderAmount = order.finalTotal || order.totalAmount || 0
+  //         console.log(`💰 Order ${order.orderNumber}: ${orderAmount}`)
+  //         return total + orderAmount
+  //       }, 0)
 
-      console.log(`📊 Stats - Total: ${totalOrders}, Pending: ${pendingOrders}, Revenue: ${totalRevenue}`)
+  //     console.log(`📊 Stats - Total: ${totalOrders}, Pending: ${pendingOrders}, Revenue: ${totalRevenue}`)
       
-      setStats({ totalOrders, pendingOrders, totalRevenue })
-    } catch (error) {
-      console.error('Error calculating stats:', error)
-    }
+  //     setStats({ totalOrders, pendingOrders, totalRevenue })
+  //   } catch (error) {
+  //     console.error('Error calculating stats:', error)
+  //   }
+  // }
+
+  // FIXED: Enhanced stats calculation with proper revenue calculation
+const calculateStatsFromOrders = (ordersData) => {
+  try {
+    const totalOrders = ordersData.length
+    
+    // FIXED: Include served orders in pending count (they're still visible for billing)
+    const pendingOrders = ordersData.filter(order => 
+      ['pending', 'confirmed', 'preparing', 'ready', 'served'].includes(order.status)
+    ).length
+    
+    // FIXED: Calculate revenue from paid orders with proper amount parsing
+    const totalRevenue = ordersData
+      .filter(order => order.status === 'paid')
+      .reduce((total, order) => {
+        // Try multiple possible amount fields and ensure it's a number
+        let orderAmount = 0;
+        
+        if (order.finalTotal !== undefined && order.finalTotal !== null) {
+          orderAmount = parseFloat(order.finalTotal) || 0;
+        } else if (order.totalAmount !== undefined && order.totalAmount !== null) {
+          orderAmount = parseFloat(order.totalAmount) || 0;
+        } else if (order.total !== undefined && order.total !== null) {
+          orderAmount = parseFloat(order.total) || 0;
+        }
+        
+        // Also check if items exist and calculate from items if amount is 0
+        if (orderAmount === 0 && order.items && Array.isArray(order.items)) {
+          orderAmount = order.items.reduce((sum, item) => {
+            const itemPrice = parseFloat(item.price) || 0;
+            const itemQuantity = parseInt(item.quantity) || 1;
+            return sum + (itemPrice * itemQuantity);
+          }, 0);
+          
+          // Add tax if applicable
+          if (order.taxAmount) {
+            orderAmount += parseFloat(order.taxAmount) || 0;
+          }
+        }
+        
+        console.log(`💰 Order ${order.orderNumber}: ${orderAmount} (from finalTotal: ${order.finalTotal}, totalAmount: ${order.totalAmount})`);
+        return total + orderAmount;
+      }, 0);
+
+    console.log(`📊 Stats - Total: ${totalOrders}, Pending: ${pendingOrders}, Revenue: ${totalRevenue}`);
+    console.log('💰 Paid orders:', ordersData.filter(order => order.status === 'paid').map(order => ({
+      orderNumber: order.orderNumber,
+      finalTotal: order.finalTotal,
+      totalAmount: order.totalAmount,
+      items: order.items
+    })));
+    
+    setStats({ totalOrders, pendingOrders, totalRevenue });
+  } catch (error) {
+    console.error('Error calculating stats:', error);
   }
+};
 
   // Enhanced order status update with socket emission
   // const updateOrderStatus = async (orderNumber, newStatus) => {

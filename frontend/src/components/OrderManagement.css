@@ -1028,3 +1028,280 @@
     display: none; /* Hide connection status on very small screens */
   }
 }
+
+/* Clickable Tables */
+.clickable-table {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.clickable-table:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.table-card.occupied:hover {
+  border-color: #ffc107;
+}
+
+.table-card.available:hover {
+  border-color: #28a745;
+}
+
+/* Table Card Content */
+.table-order-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #ddd;
+}
+
+.table-order-info p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.customer-name {
+  color: #333;
+  font-weight: 500;
+}
+
+.order-status {
+  color: #666;
+}
+
+.order-time {
+  color: #888;
+  font-size: 12px !important;
+}
+
+.view-order-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.view-order-btn:hover {
+  background: #0056b3;
+}
+
+.table-available-info {
+  margin-top: 15px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.capacity {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.click-instruction {
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 6px;
+  color: #28a745;
+  font-weight: 500;
+  font-size: 13px;
+  border: 1px dashed #28a745;
+}
+
+.table-history {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.order-count {
+  background: rgba(0,0,0,0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #666;
+}
+
+/* Quick Actions Section */
+.quick-actions-section {
+  margin: 30px 0;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.quick-actions-section h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 120px;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.quick-action-btn:nth-child(2) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.quick-action-btn:nth-child(3) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.quick-action-btn:nth-child(4) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.action-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.action-text {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Recent Orders Section */
+.recent-orders-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.recent-orders-section h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.recent-orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.recent-order-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s;
+}
+
+.recent-order-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.recent-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.order-number {
+  font-weight: bold;
+  color: #333;
+}
+
+.table-number {
+  color: #666;
+  font-size: 13px;
+}
+
+.order-status-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  color: white;
+  font-weight: 500;
+}
+
+.recent-order-details p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.view-details-btn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.view-details-btn:hover {
+  background: #545b62;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .recent-orders-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-order-info p,
+  .table-available-info p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-action-btn {
+    height: 100px;
+  }
+  
+  .action-icon {
+    font-size: 24px;
+  }
+  
+  .action-text {
+    font-size: 12px;
+  }
+}

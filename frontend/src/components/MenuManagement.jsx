@@ -83,71 +83,7 @@ const MenuManagement = () => {
     }
   }
 
-  // const validateForm = () => {
-  //   const newErrors = {}
-    
-  //   if (!formData.name.trim()) {
-  //     newErrors.name = 'Name is required'
-  //   }
-    
-  //   if (!formData.price || isNaN(formData.price) || parseFloat(formData.price) <= 0) {
-  //     newErrors.price = 'Valid price is required'
-  //   }
-    
-  //   if (!formData.category) {
-  //     newErrors.category = 'Category is required'
-  //   }
-    
-  //   setErrors(newErrors)
-  //   return Object.keys(newErrors).length === 0
-  // }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-    
-  //   if (!validateForm()) {
-  //     return
-  //   }
-
-  //   try {
-  //     const submitData = {
-  //       ...formData,
-  //       price: parseFloat(formData.price),
-  //       preparationTime: parseInt(formData.preparationTime) || 15
-  //     }
-
-  //     if (editingItem) {
-  //       // Update existing item
-  //       const response = await axios.put(`${API_BASE_URL}/menu/${editingItem._id}`, submitData)
-  //       if (response.data && response.data.success) {
-  //         setMenuItems(prev => {
-  //           const safePrev = Array.isArray(prev) ? prev : []
-  //           return safePrev.map(item => 
-  //             item._id === editingItem._id ? response.data.data : item
-  //           )
-  //         })
-  //         alert('Menu item updated successfully!')
-  //       }
-  //     } else {
-  //       // Create new item
-  //       const response = await axios.post(`${API_BASE_URL}/menu`, submitData)
-  //       if (response.data && response.data.success) {
-  //         setMenuItems(prev => {
-  //           const safePrev = Array.isArray(prev) ? prev : []
-  //           return [response.data.data, ...safePrev]
-  //         })
-  //         alert('Menu item added successfully!')
-  //       }
-  //     }
-
-  //     resetForm()
-  //     setShowAddModal(false)
-  //   } catch (error) {
-  //     console.error('❌ Error saving menu item:', error)
-  //     const errorMessage = error.response?.data?.message || 'Error saving menu item. Please try again.'
-  //     alert(errorMessage)
-  //   }
-  // }
 
   const validateForm = () => {
   const newErrors = {}

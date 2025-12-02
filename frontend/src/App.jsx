@@ -10,7 +10,9 @@ import './App.css'
 import InventoryManagement from './components/InventoryManagement'
 import Analysis from './components/Analysis'
 import BillingManagement from './components/BillingManagement'
-
+import OrderManagement from './components/OrderManagement'
+import CombinedBillsManager from './components/CombinedBillsManager'
+import Support from './components/Support';
 function App() {
   return (
     <Router>
@@ -25,7 +27,12 @@ function App() {
           {/* <Route path="/admin/bill-printing" element={<BillPrinting/>} /> */}
           <Route path='/analysis' element={<Analysis/>}/>
           <Route path='/billing' element={<BillingManagement/>} />
+          <Route path='/ordermanagement' element={<OrderManagement/>} />
+          <Route path='/combined-bills' element={<CombinedBillsManager/>} />
+          <Route path='/support' element={<Support/>} />
+
         </Routes>
+
         <ToastContainer 
           position="bottom-right"
           autoClose={3000}

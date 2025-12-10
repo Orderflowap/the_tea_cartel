@@ -18,7 +18,8 @@ const server = http.createServer(app);
 app.use(cors({
   origin: [
     'https://dapper-muffin-326944.netlify.app',
-    'https://orderflow-frontend.onrender.com',
+    // 'https://orderflow-frontend.onrender.com',
+    'https://the-tea-cartel-1.onrender.com',
     'http://localhost:3000', 
     'http://localhost:5173'
   ],
@@ -59,7 +60,8 @@ const io = socketIo(server, {
   cors: {
     origin: [
       "https://dapper-muffin-326944.netlify.app",
-      "https://orderflow-frontend.onrender.com",
+      // "https://orderflow-frontend.onrender.com",
+      'https://the-tea-cartel-1.onrender.com',
       "http://localhost:3000",
       "http://localhost:5173"
     ],

@@ -1,16 +1,12 @@
 
 
-//2
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-// import menuItems from './menuItems'
 import menuItems from '../data/menuItems' // Import your hardcoded menu items
 import './CustomerOrder.css'
-// import background from '../assets/barista.jpg';
 import background from '../assets/inside.jpeg';
 
-// const API_BASE_URL = 'https://orderflow-backend-v964.onrender.com/api'
 const API_BASE_URL = 'https://the-tea-cartel-1.onrender.com/api';
 import logo from '../assets/logo.png';
 
@@ -397,23 +393,23 @@ const generateObjectId = () => {
                     <div className="item-details">
                       <div className="item-header">
                         <h3 className="item-left">{item.name}</h3>
-                        <div className="veg-indicator">
+                        {/* <div className="veg-indicator">
                           {item.isVeg ? (
                             <span className="veg-icon">Veg</span>
                           ) : (
                             <span className="non-veg-icon">Non-Veg</span>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                       {/* <p className="item-description">{item.description}</p> */}
                       
                       <div className="item-meta">
                         <span className="item-price">₹{item.price}</span>
-                        {item.preparationTime && (
+                        {/* {item.preparationTime && (
                           <span className="preparation-time item-right">⏱️ {item.preparationTime}min</span>
-                        )}
+                        )} */}
                       </div>
-
+                      {/* <div className='item-meta'> */}
                       <div className="item-actions">
                         {cartQuantity > 0 ? (
                           <div className="quantity-controls">
@@ -441,6 +437,7 @@ const generateObjectId = () => {
                           </button>
                         )}
                       </div>
+                      {/* </div> */}
                     </div>
                   </div>
                 );
@@ -477,9 +474,7 @@ const generateObjectId = () => {
                     {cart.map(item => (
                       <div key={item._id} className="cart-item">
                         <div className="cart-item-header">
-                          <div className="cart-veg-indicator">
-                            {item.isVeg ? '🟢' : '🔴'}
-                          </div>
+                          
                           <div className="cart-item-details">
                             <h4>{item.name}</h4>
                             <p className="item-price">₹{item.price}</p>
@@ -503,12 +498,7 @@ const generateObjectId = () => {
                         <div className="cart-item-total">
                           ₹{item.price * item.quantity}
                         </div>
-                        <button 
-                          className="remove-btn"
-                          onClick={() => removeFromCart(item._id)}
-                        >
-                          ×
-                        </button>
+                        
                       </div>
                     ))}
                   </div>

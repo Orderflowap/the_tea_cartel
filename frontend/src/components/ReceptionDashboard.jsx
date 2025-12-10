@@ -582,7 +582,7 @@ const generateCombinedBill = async (tableNumber) => {
     })
 
     const taxAmount = totalAmount * 0.05
-    const finalTotal = totalAmount + taxAmount
+    const finalTotal = totalAmount
     const combinedBillNumber = `CB-${tableNumber}-${Date.now()}`
 
     // Create combined order object
@@ -777,7 +777,7 @@ const generateCombinedBill = async (tableNumber) => {
           <div class="bill-container">
             <div class="bill-header">
               <div class="restaurant-name">The Chai Cartel</div>
-              <div>--------------------------------</div>
+              <div>-----------</div>
             </div>
             
             <div class="bill-info">
@@ -822,10 +822,7 @@ const generateCombinedBill = async (tableNumber) => {
                 <span>Subtotal:</span>
                 <span>₹${(order.totalAmount || 0).toFixed(2)}</span>
               </div>
-              <div class="total-row">
-                <span>Tax (5%):</span>
-                <span>₹${(order.taxAmount || 0).toFixed(2)}</span>
-              </div>
+              
               <div class="total-row final-total">
                 <span>TOTAL:</span>
                 <span>₹${(order.finalTotal || order.totalAmount || 0).toFixed(2)}</span>

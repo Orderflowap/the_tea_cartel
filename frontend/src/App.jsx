@@ -22,14 +22,14 @@ function App() {
           <Route path="/reception" element={<ReceptionDashboard />} />
           <Route path="/admin/tables" element={<TableManagement />} />
           <Route path="/" element={<Navigate to="/reception" replace />} />
-          <Route path="/admin/menu" element={<MenuManagement />} />
+          {/* <Route path="/admin/menu" element={<MenuManagement />} /> */}
           <Route path="/inventory" element={<InventoryManagement />} />
           {/* <Route path="/admin/bill-printing" element={<BillPrinting/>} /> */}
           <Route path='/analysis' element={<Analysis/>}/>
           <Route path='/billing' element={<BillingManagement/>} />
           <Route path='/ordermanagement' element={<OrderManagement/>} />
           <Route path='/combined-bills' element={<CombinedBillsManager/>} />
-          <Route path='/support' element={<Support/>} />
+          {/* <Route path='/support' element={<Support/>} /> */}
 
         </Routes>
 

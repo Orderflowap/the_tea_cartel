@@ -1269,9 +1269,9 @@ const generateCombinedBill = async (tableNumber) => {
             <Link to="/admin/tables" className="sidebar-item" onClick={toggleMenu}>
               🪑 Manage Tables
             </Link>
-            <Link to="/admin/menu" className="sidebar-item" onClick={toggleMenu}>
+            {/* <Link to="/admin/menu" className="sidebar-item" onClick={toggleMenu}>
               🍽️ Manage Menu
-            </Link>
+            </Link> */}
             <Link to="/inventory" className="sidebar-item" onClick={toggleMenu}>
               📦 Manage Inventory
             </Link>
@@ -1285,9 +1285,9 @@ const generateCombinedBill = async (tableNumber) => {
             <Link to="/combined-bills" className="sidebar-item" onClick={toggleMenu}>
               📋 Combined Bills
             </Link>
-            <Link to="/support" className="sidebar-item" onClick={toggleMenu}>
+            {/* <Link to="/support" className="sidebar-item" onClick={toggleMenu}>
               🆘 Contact Support
-            </Link>
+            </Link> */}
           </div>
           
           <div className="sidebar-footer">

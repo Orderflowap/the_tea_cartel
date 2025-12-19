@@ -108,7 +108,7 @@ const CombinedBillsManager = () => {
       </head>
       <body>
         <div class="header">
-          <h1>AMORE MIO</h1>
+          <h1>THE CHAI CARTEL</h1>
           <h3>Combined Bill Report</h3>
         </div>
         

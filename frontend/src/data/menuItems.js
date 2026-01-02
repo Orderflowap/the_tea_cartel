@@ -1119,7 +1119,252 @@ const menuItems = [
     preparationTime: 8,
     isVegetarian: true,
     isAvailable: true
-  }
+  },
+{
+    id: 91,
+    name: "Classic Margherita Small",
+    category: "Pizza",
+    price: 99,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://cdn.uengage.io/uploads/28289/image-SVA6ZR-1720180607.jpg",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 92,
+    name: "Classic Margherita Large",
+    category: "Pizza",
+    price: 129,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://cdn.uengage.io/uploads/28289/image-SVA6ZR-1720180607.jpg",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 93,
+    name: "3 Topping Pizza Small",
+    category: "Pizza",
+    price: 129,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUt_oJ2wp7a9WqL7daJH0vpzd9qd5_Nnce_g&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 94,
+    name: "3 Topping Pizza Large",
+    category: "Pizza",
+    price: 159,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUt_oJ2wp7a9WqL7daJH0vpzd9qd5_Nnce_g&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 95,
+    name: "BBQ Veggie Pizza Small",
+    category: "Pizza",
+    price: 139,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzb6l1jqAHyaKk0rrNY18TlbvN4yxhQStgyw&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 96,
+    name: "BBQ Veggie Pizza Large",
+    category: "Pizza",
+    price: 169,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzb6l1jqAHyaKk0rrNY18TlbvN4yxhQStgyw&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 97,
+    name: "Farm Fresh Pizza Small",
+    category: "Pizza",
+    price: 149,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxj9il7XD4DiGAgOKrCzdvZw4eWFK2UBQrww&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 98,
+    name: "Farm Fresh Pizza Large",
+    category: "Pizza",
+    price: 189,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxj9il7XD4DiGAgOKrCzdvZw4eWFK2UBQrww&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 99,
+    name: "Veggie Extra Veganza Small",
+    category: "Pizza",
+    price: 169,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTYiAAXx1mjwGX4y0gmv3MnRn_UlncUUiXtQ&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 100,
+    name: "Veggie Extra Vaganza Large",
+    category: "Pizza",
+    price: 209,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTYiAAXx1mjwGX4y0gmv3MnRn_UlncUUiXtQ&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 101,
+    name: "Smoke Veggie Sausage Small",
+    category: "Pizza",
+    price: 169,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQQ4_tbEqttmrzVZ-4bIuJlPNXVAU57OmF9w&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 102,
+    name: "Smoke Veggie Sausage Large",
+    category: "Pizza",
+    price: 219,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQQ4_tbEqttmrzVZ-4bIuJlPNXVAU57OmF9w&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 103,
+    name: "TCC Special Pizza Small",
+    category: "Pizza",
+    price: 199,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQavVNaZNiZ7LdFrEjGHUKOCinrrXsB62491g&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 104,
+    name: "TCC Special Pizza Large",
+    category: "Pizza",
+    price: 259,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQavVNaZNiZ7LdFrEjGHUKOCinrrXsB62491g&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 105,
+    name: "4 Cheeze Pizza Small",
+    category: "Pizza",
+    price: 189,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSOe4gkt9xzHcN5QeJwi92SG5iaWi-Rr_oKQ&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 106,
+    name: "4 Cheeze Pizza Large",
+    category: "Pizza",
+    price: 249,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSOe4gkt9xzHcN5QeJwi92SG5iaWi-Rr_oKQ&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 107,
+    name: "All time four Small",
+    category: "Pizza",
+    price: 119,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO_heFcze0URbPb7Oh_KP4HQBiA8PGo9wZ4w&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 108,
+    name: "All time four Large",
+    category: "Pizza",
+    price: 129,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO_heFcze0URbPb7Oh_KP4HQBiA8PGo9wZ4w&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 109,
+    name: "Pizza Banka(white Sausage) Small ",
+    category: "Pizza",
+    price: 119,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCptDZDSk4eCkIDPDgDs1AVWlRmUOMzm03xg&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+{
+    id: 110,
+    name: "Pizza Banka(white Sausage) Large ",
+    category: "Pizza",
+    price: 129,
+    description: "Brownie pieces with ice cream and toppings.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCptDZDSk4eCkIDPDgDs1AVWlRmUOMzm03xg&s",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 20,
+    isVegetarian: true,
+    isAvailable: true
+  },
+
+
+
+
+
 ];
 
 

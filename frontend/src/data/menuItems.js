@@ -2729,7 +2729,29 @@ const menuItems = [
     isVegetarian: true,
     isAvailable: true
   },
-
+{
+    id: 111,
+    name: "Water Bottle (small)",
+    category: "Water",
+    price: 10,
+    description: "Onion,Garlic,Chilli,TomatoGarlic Sliged",
+    image: "https://t3.ftcdn.net/jpg/01/12/63/40/360_F_112634050_1y5wiXEvuqiOquGTW5PUfNaUztyWIn69.jpg",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 0,
+    isVegetarian: true,
+    isAvailable: true
+  },{
+    id: 112,
+    name: "Water Bottle (large)",
+    category: "Water",
+    price: 20,
+    description: "Onion,Garlic,Chilli,TomatoGarlic Sliged",
+    image: "https://t3.ftcdn.net/jpg/01/12/63/40/360_F_112634050_1y5wiXEvuqiOquGTW5PUfNaUztyWIn69.jpg",
+    ingredients: ["brownie pieces", "vanilla ice cream", "chocolate sauce", "whipped cream", "cherry"],
+    preparationTime: 0,
+    isVegetarian: true,
+    isAvailable: true
+  },
 
 
 

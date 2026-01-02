@@ -12,7 +12,9 @@ router.post('/', async (req, res) => {
     console.log('📦 Full request body:', req.body);
     console.log('📦 Body type:', typeof req.body);
     console.log('📦 Body keys:', Object.keys(req.body || {}));
-
+    console.log('🧀 EXTRA CHEESE DATA FROM FRONTEND:');
+    console.log('   Order extraCheeseTotal:', req.body.extraCheeseTotal);
+    console.log('   Order totalAmount:', req.body.totalAmount);
     // If body is empty, send specific error
     if (!req.body || Object.keys(req.body).length === 0) {
       console.log('❌ EMPTY BODY DETECTED');
@@ -87,20 +89,52 @@ router.post('/', async (req, res) => {
     }
 
     // ✅ FIXED: Create order data with proper field mapping
-    const orderData = {
-      tableNumber: parseInt(tableNumber),
-      customerName: customerName.toString().trim(),
-      mobileNumber: mobileNumber.toString().trim(),
-      items: items.map(item => ({
-        menuItem: item._id || item.menuItem || `temp-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-        name: item.name.toString().trim(),
-        price: parseFloat(item.price),
-        quantity: parseInt(item.quantity),
-        isVeg: Boolean(item.isVeg)
-      })),
-      notes: notes.toString().trim()
-    };
+    // const orderData = {
+    //   tableNumber: parseInt(tableNumber),
+    //   customerName: customerName.toString().trim(),
+    //   mobileNumber: mobileNumber.toString().trim(),
+    //   items: items.map(item => ({
+    //     menuItem: item._id || item.menuItem || `temp-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+    //     name: item.name.toString().trim(),
+    //     price: parseFloat(item.price),
+    //     quantity: parseInt(item.quantity),
+    //     isVeg: Boolean(item.isVeg)
+    //   })),
+    //   notes: notes.toString().trim()
+    // };
 
+    // ✅ FIXED: Create order data with proper field mapping INCLUDING EXTRA CHEESE
+const orderData = {
+  tableNumber: parseInt(tableNumber),
+  customerName: customerName.toString().trim(),
+  mobileNumber: mobileNumber.toString().trim(),
+  items: items.map(item => ({
+    menuItem: item._id || item.menuItem || `temp-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+    name: item.name.toString().trim(),
+    price: parseFloat(item.price),
+    quantity: parseInt(item.quantity),
+    isVeg: Boolean(item.isVeg),
+    // ✅ ADD THESE EXTRA CHEESE FIELDS FROM FRONTEND
+    extraCheese: Boolean(item.extraCheese) || false,
+    extraCheesePrice: parseFloat(item.extraCheesePrice) || 0,
+    itemTotal: parseFloat(item.itemTotal) || 0
+  })),
+  notes: notes.toString().trim(),
+  // ✅ ALSO INCLUDE ORDER-LEVEL EXTRA CHEESE TOTAL
+  extraCheeseTotal: parseFloat(req.body.extraCheeseTotal) || 0,
+  totalAmount: parseFloat(req.body.totalAmount) || 0
+};
+
+console.log('✅ Processed order data with extra cheese:', orderData);
+console.log('🔍 Checking extra cheese data in items:');
+orderData.items.forEach((item, index) => {
+  console.log(`   Item ${index + 1}: ${item.name}`);
+  console.log(`     extraCheese: ${item.extraCheese}`);
+  console.log(`     extraCheesePrice: ${item.extraCheesePrice}`);
+  console.log(`     itemTotal: ${item.itemTotal}`);
+});
+console.log(`   Order extraCheeseTotal: ${orderData.extraCheeseTotal}`);
+console.log(`   Order totalAmount: ${orderData.totalAmount}`);
     console.log('✅ Processed order data:', orderData);
 
     const order = new Order(orderData);

@@ -641,49 +641,116 @@ const CustomerOrder = () => {
     }
   }
 
-  const addToCart = (item) => {
-    console.log('➕ Adding to cart:', item);
+  // const addToCart = (item) => {
+  //   console.log('➕ Adding to cart:', item);
     
-    // Check if extra cheese is selected for this item
-    const hasExtraCheese = extraCheeseSelections[item._id] || false;
+  //   // Check if extra cheese is selected for this item
+  //   const hasExtraCheese = extraCheeseSelections[item._id] || false;
     
-    const cartItem = {
-      _id: item._id,
-      name: item.name,
-      price: item.price,
-      quantity: 1,
-      isVeg: item.isVeg,
-      canAddExtraCheese: item.canAddExtraCheese,
-      extraCheese: hasExtraCheese,
-      extraCheesePrice: hasExtraCheese ? EXTRA_CHEESE_PRICE : 0
-    };
+  //   const cartItem = {
+  //     _id: item._id,
+  //     name: item.name,
+  //     price: item.price,
+  //     quantity: 1,
+  //     isVeg: item.isVeg,
+  //     canAddExtraCheese: item.canAddExtraCheese,
+  //     extraCheese: hasExtraCheese,
+  //     extraCheesePrice: hasExtraCheese ? EXTRA_CHEESE_PRICE : 0
+  //   };
 
-    const existingItem = cart.find(cartItem => cartItem._id === item._id);
+  //   const existingItem = cart.find(cartItem => cartItem._id === item._id);
     
-    if (existingItem) {
-      // If item already exists in cart, update quantity and recalculate extra cheese price
+  //   if (existingItem) {
+  //     // If item already exists in cart, update quantity and recalculate extra cheese price
+  //     setCart(cart.map(cartItem =>
+  //       cartItem._id === item._id
+  //         ? { 
+  //             ...cartItem, 
+  //             quantity: cartItem.quantity + 1,
+  //             extraCheesePrice: cartItem.extraCheese ? EXTRA_CHEESE_PRICE * (cartItem.quantity + 1) : 0
+  //           }
+  //         : cartItem
+  //     ));
+  //   } else {
+  //     // Add new item to cart
+  //     setCart([...cart, cartItem]);
+  //   }
+    
+  //   // Reset extra cheese selection for this item
+  //   if (item.canAddExtraCheese) {
+  //     setExtraCheeseSelections({
+  //       ...extraCheeseSelections,
+  //       [item._id]: false
+  //     });
+  //   }
+  // };
+
+  const addToCart = (item) => {
+  console.log('➕ Adding to cart:', item);
+  console.log('🧀 Extra cheese selection for this item:', extraCheeseSelections[item._id]);
+  
+  // Check if extra cheese is selected for this item
+  const hasExtraCheese = extraCheeseSelections[item._id] || false;
+  
+  console.log('🧀 Has extra cheese?', hasExtraCheese);
+  
+  const cartItem = {
+    _id: item._id,
+    name: item.name,
+    price: item.price,
+    quantity: 1,
+    isVeg: item.isVeg,
+    canAddExtraCheese: item.canAddExtraCheese,
+    extraCheese: hasExtraCheese,
+    extraCheesePrice: hasExtraCheese ? EXTRA_CHEESE_PRICE : 0,
+    itemTotal: item.price + (hasExtraCheese ? EXTRA_CHEESE_PRICE : 0)
+  };
+
+  const existingItem = cart.find(cartItem => cartItem._id === item._id);
+  
+  if (existingItem) {
+    // If item already exists in cart, check if extra cheese preference is the same
+    const sameExtraCheese = existingItem.extraCheese === hasExtraCheese;
+    
+    if (sameExtraCheese) {
+      // Same extra cheese preference, just update quantity
       setCart(cart.map(cartItem =>
         cartItem._id === item._id
           ? { 
               ...cartItem, 
               quantity: cartItem.quantity + 1,
-              extraCheesePrice: cartItem.extraCheese ? EXTRA_CHEESE_PRICE * (cartItem.quantity + 1) : 0
+              extraCheesePrice: cartItem.extraCheese ? EXTRA_CHEESE_PRICE * (cartItem.quantity + 1) : 0,
+              itemTotal: (cartItem.price * (cartItem.quantity + 1)) + (cartItem.extraCheese ? EXTRA_CHEESE_PRICE * (cartItem.quantity + 1) : 0)
             }
           : cartItem
       ));
     } else {
-      // Add new item to cart
-      setCart([...cart, cartItem]);
+      // Different extra cheese preference, treat as new item with unique ID
+      const newItemId = `${item._id}-${Date.now()}`;
+      const newCartItem = {
+        ...cartItem,
+        _id: newItemId,
+        name: hasExtraCheese ? `${item.name} (Extra Cheese)` : item.name
+      };
+      setCart([...cart, newCartItem]);
     }
-    
-    // Reset extra cheese selection for this item
-    if (item.canAddExtraCheese) {
-      setExtraCheeseSelections({
-        ...extraCheeseSelections,
-        [item._id]: false
-      });
-    }
-  };
+  } else {
+    // Add new item to cart
+    const newCartItem = {
+      ...cartItem,
+      name: hasExtraCheese ? `${item.name} (Extra Cheese)` : item.name
+    };
+    setCart([...cart, newCartItem]);
+  }
+  
+  // Reset extra cheese selection for this item
+  if (item.canAddExtraCheese) {
+    setExtraCheeseSelections({
+      ...extraCheeseSelections,
+      [item._id]: false
+    });
+  }
+};
 
   const toggleExtraCheeseSelection = (itemId) => {
     setExtraCheeseSelections({
@@ -692,43 +759,80 @@ const CustomerOrder = () => {
     });
   };
 
-  const toggleExtraCheeseInCart = (itemId) => {
-    setCart(cart.map(item => {
-      if (item._id === itemId && item.canAddExtraCheese) {
-        const newExtraCheeseState = !item.extraCheese;
-        return {
-          ...item,
-          extraCheese: newExtraCheeseState,
-          extraCheesePrice: newExtraCheeseState ? EXTRA_CHEESE_PRICE * item.quantity : 0
-        };
-      }
-      return item;
-    }));
-  };
+  // const toggleExtraCheeseInCart = (itemId) => {
+  //   setCart(cart.map(item => {
+  //     if (item._id === itemId && item.canAddExtraCheese) {
+  //       const newExtraCheeseState = !item.extraCheese;
+  //       return {
+  //         ...item,
+  //         extraCheese: newExtraCheeseState,
+  //         extraCheesePrice: newExtraCheeseState ? EXTRA_CHEESE_PRICE * item.quantity : 0
+  //       };
+  //     }
+  //     return item;
+  //   }));
+  // };
 
+
+  const toggleExtraCheeseInCart = (itemId) => {
+  setCart(cart.map(item => {
+    if (item._id === itemId && item.canAddExtraCheese) {
+      const newExtraCheeseState = !item.extraCheese;
+      const newName = newExtraCheeseState ? `${item.name.replace(' (Extra Cheese)', '')} (Extra Cheese)` : item.name.replace(' (Extra Cheese)', '');
+      
+      return {
+        ...item,
+        name: newName,
+        extraCheese: newExtraCheeseState,
+        extraCheesePrice: newExtraCheeseState ? EXTRA_CHEESE_PRICE * item.quantity : 0,
+        itemTotal: (item.price * item.quantity) + (newExtraCheeseState ? EXTRA_CHEESE_PRICE * item.quantity : 0)
+      };
+    }
+    return item;
+  }));
+};
   const removeFromCart = (itemId) => {
     setCart(cart.filter(item => item._id !== itemId))
   }
 
-  const updateQuantity = (itemId, newQuantity) => {
-    if (newQuantity < 1) {
-      removeFromCart(itemId)
-      return
-    }
+  // const updateQuantity = (itemId, newQuantity) => {
+  //   if (newQuantity < 1) {
+  //     removeFromCart(itemId)
+  //     return
+  //   }
     
-    setCart(cart.map(item => {
-      if (item._id === itemId) {
-        const updatedItem = {
-          ...item,
-          quantity: newQuantity,
-          extraCheesePrice: item.extraCheese ? EXTRA_CHEESE_PRICE * newQuantity : 0
-        };
-        return updatedItem;
-      }
-      return item;
-    }));
-  }
+  //   setCart(cart.map(item => {
+  //     if (item._id === itemId) {
+  //       const updatedItem = {
+  //         ...item,
+  //         quantity: newQuantity,
+  //         extraCheesePrice: item.extraCheese ? EXTRA_CHEESE_PRICE * newQuantity : 0
+  //       };
+  //       return updatedItem;
+  //     }
+  //     return item;
+  //   }));
+  // }
 
+  const updateQuantity = (itemId, newQuantity) => {
+  if (newQuantity < 1) {
+    removeFromCart(itemId)
+    return
+  }
+  
+  setCart(cart.map(item => {
+    if (item._id === itemId) {
+      const updatedItem = {
+        ...item,
+        quantity: newQuantity,
+        extraCheesePrice: item.extraCheese ? EXTRA_CHEESE_PRICE * newQuantity : 0,
+        itemTotal: (item.price * newQuantity) + (item.extraCheese ? EXTRA_CHEESE_PRICE * newQuantity : 0)
+      };
+      return updatedItem;
+    }
+    return item;
+  }));
+}
   const getCartQuantity = (itemId) => {
     const cartItem = cart.find(item => item._id === itemId);
     return cartItem ? cartItem.quantity : 0;
@@ -835,7 +939,88 @@ const CustomerOrder = () => {
   // }
 
 
-  const placeOrder = async () => {
+//   const placeOrder = async () => {
+//   if (cart.length === 0) {
+//     alert('Your cart is empty. Please add items before placing an order.');
+//     return;
+//   }
+
+//   try {
+//     setLoading(true);
+    
+//     console.log('🛒 Cart items:', cart);
+    
+//     // Create proper order data structure
+//     const orderData = {
+//       tableNumber: parseInt(tableNumber),
+//       customerName: customerInfo.name.trim(),
+//       mobileNumber: customerInfo.mobileNumber.trim(),
+//       items: cart.map(item => ({
+//         menuItem: item._id,
+//         name: item.extraCheese ? `${item.name} (Extra Cheese)` : item.name, // Add extra cheese to name
+//         price: parseFloat(item.price),
+//         quantity: parseInt(item.quantity),
+//         isVeg: Boolean(item.isVeg),
+//         extraCheese: item.extraCheese || false,
+//         extraCheesePrice: item.extraCheese ? parseFloat(EXTRA_CHEESE_PRICE * item.quantity) : 0,
+//         itemTotal: parseFloat((item.price * item.quantity) + (item.extraCheese ? EXTRA_CHEESE_PRICE * item.quantity : 0))
+//       })),
+//       // Add extra cheese total to order
+//       extraCheeseTotal: getExtraCheeseTotal(),
+//       totalAmount: getTotalAmount()
+//     };
+
+//     console.log('📦 Order data being sent:', JSON.stringify(orderData, null, 2));
+
+//     const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+    
+//     console.log('✅ Order response:', response.data);
+    
+//     if (response.data.success) {
+//       const order = response.data.data || response.data.order;
+//       alert("Order Placed Successfully✅")
+//       // Clear cart and close modal
+//       setCart([]);
+//       setShowCart(false);
+      
+//       // Reset all extra cheese selections
+//       const resetSelections = {};
+//       menu.forEach(item => {
+//         if (item.canAddExtraCheese) {
+//           resetSelections[item._id] = false;
+//         }
+//       });
+//       setExtraCheeseSelections(resetSelections);
+//     } else {
+//       alert('Order failed: ' + (response.data.message || 'Unknown error'));
+//     }
+    
+//   } catch (error) {
+//     console.error('❌ Order error:', error);
+    
+//     if (error.response?.data) {
+//       console.error('❌ Backend error response:', error.response.data);
+      
+//       if (error.response.data.errors) {
+//         const errorMessages = error.response.data.errors.map(err => 
+//           `• ${err.path}: ${err.message}`
+//         ).join('\n');
+//         alert(`Validation errors:\n${errorMessages}`);
+//       } else {
+//         alert(`Error: ${error.response.data.message || error.response.data.error}`);
+//       }
+//     } else if (error.request) {
+//       alert('Network error: Could not connect to server. Please check your connection.');
+//     } else {
+//       alert('Error: ' + error.message);
+//     }
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+
+
+const placeOrder = async () => {
   if (cart.length === 0) {
     alert('Your cart is empty. Please add items before placing an order.');
     return;
@@ -844,7 +1029,7 @@ const CustomerOrder = () => {
   try {
     setLoading(true);
     
-    console.log('🛒 Cart items:', cart);
+    console.log('🛒 Cart items before sending:', cart);
     
     // Create proper order data structure
     const orderData = {
@@ -853,13 +1038,13 @@ const CustomerOrder = () => {
       mobileNumber: customerInfo.mobileNumber.trim(),
       items: cart.map(item => ({
         menuItem: item._id,
-        name: item.extraCheese ? `${item.name} (Extra Cheese)` : item.name, // Add extra cheese to name
+        name: item.name, // This already includes "(Extra Cheese)" if selected
         price: parseFloat(item.price),
         quantity: parseInt(item.quantity),
         isVeg: Boolean(item.isVeg),
         extraCheese: item.extraCheese || false,
-        extraCheesePrice: item.extraCheese ? parseFloat(EXTRA_CHEESE_PRICE * item.quantity) : 0,
-        itemTotal: parseFloat((item.price * item.quantity) + (item.extraCheese ? EXTRA_CHEESE_PRICE * item.quantity : 0))
+        extraCheesePrice: item.extraCheese ? parseFloat(item.extraCheesePrice) : 0,
+        itemTotal: parseFloat(item.itemTotal) || parseFloat((item.price * item.quantity) + (item.extraCheese ? item.extraCheesePrice : 0))
       })),
       // Add extra cheese total to order
       extraCheeseTotal: getExtraCheeseTotal(),
@@ -872,8 +1057,7 @@ const CustomerOrder = () => {
     
     console.log('✅ Order response:', response.data);
     
-    if (response.data.success) {
-      const order = response.data.data || response.data.order;
+    if (response.data.success || response.data.orderNumber) {
       alert("Order Placed Successfully✅")
       // Clear cart and close modal
       setCart([]);

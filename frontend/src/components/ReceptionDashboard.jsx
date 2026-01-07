@@ -1709,6 +1709,27 @@ const printThermalBill = (order) => {
     }
   }
 
+  const handleTableClick = (tableNumber, tableStatus) => {
+      navigate(`/order/${tableNumber}`)
+
+//   if (tableStatus === 'occupied') {
+//     // Find the active order for this table
+//     const tableOrder = orders.find(order => {
+//       const isSameTable = order.tableNumber === tableNumber
+//       const isActive = order.status !== 'paid' && order.status !== 'cancelled'
+//       return isSameTable && isActive
+//     })
+    
+//     if (tableOrder && tableOrder._id) {
+//       navigate(`/order/${tableOrder._id}`)
+//     } else {
+//       navigate(`/order/${tableNumber}`)
+//     }
+//   } else {
+//     navigate(`/order/${tableNumber}`)
+//   }
+}
+
   const handleLogout = () => {
     setIsAuthenticated(false)
     setOrders([])
@@ -1877,11 +1898,11 @@ const printThermalBill = (order) => {
       {/* Main Content */}
       <main className="main-content">
         {/* Tables display */}
-        <div className="tables-section">
+        {/* <div className="tables-section">
           <h3>Table Status ({tables.length} tables)</h3>
           <div className="tables-grid">
             {tables.map(table => (
-              <div key={table.tableNumber} className={`table-card ${table.status === 'occupied' ? 'occupied' : 'available'}`}>
+              <div  key={table.tableNumber} className={`table-card ${table.status === 'occupied' ? 'occupied' : 'available'}`}>
                 <div className="table-header">
                   <h4>Table {table.tableNumber}</h4>
                   <span className="table-status">
@@ -1891,7 +1912,33 @@ const printThermalBill = (order) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
+
+        <div className="tables-section">
+          <h3>Table Status ({tables.length} tables)</h3>
+          <div className="tables-grid">
+            {tables.map(table => (
+              <div  
+                key={table.tableNumber} 
+                className={`table-card ${table.status === 'occupied' ? 'occupied' : 'available'} clickable-table`}
+                onClick={() => handleTableClick(table.tableNumber, table.status)}
+              >
+                <div className="table-header">
+                  <h4>Table {table.tableNumber}</h4>
+                  <span className="table-status">
+                    {table.status === 'occupied' ? '🟡 Occupied' : '🟢 Available'}
+                  </span>
+                  {table.status === 'occupied' && table.currentOrder && (
+                  <div className="table-order-info">
+                   
+                    
+                  </div>
+                )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div> 
 
         <div className="orders-section">
           <div className="section-header">
